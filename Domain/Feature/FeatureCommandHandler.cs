@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Domain.Datastore;
 using Enexure.MicroBus;
-using Enexure.MicroBus.MessageContracts;
 
 namespace Domain.Feature
 {

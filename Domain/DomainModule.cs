@@ -7,20 +7,21 @@ using Enexure.MicroBus.Autofac;
 
 namespace Domain
 {
+	using Enexure.MicroBus;
+
 	public class DomainModule : Module
 	{
 		protected override void Load(ContainerBuilder builder)
 		{
 			builder.RegisterType<Context>().InstancePerLifetimeScope();
 
-			builder.RegisterMicroBus(x => {
+			var busBuilder = new BusBuilder();
 
-				var pipeline = x.CreatePipeline()
-					.AddHandler<TransactionHandler>();
+			busBuilder.RegisterGlobalHandler<TransactionHandler>();
+			busBuilder.RegisterCommandHandler<FeatureCommand, FeatureCommandHandler>();
+			busBuilder.RegisterCancelableCommandHandler<CancelableCommand, CancelableCommandHandler>();
 
-				x.RegisterHandler<FeatureCommandHandler>(pipeline);
-
-			});
+			builder.RegisterMicroBus(busBuilder);
 		}
 	}
 }

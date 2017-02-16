@@ -1,24 +1,21 @@
 ﻿using System.Threading.Tasks;
 using Domain.Datastore;
 using Enexure.MicroBus;
-using Enexure.MicroBus.MessageContracts;
 
 namespace Domain.CrossCutting
 {
-	public class TransactionHandler : IPipelineHandler
+	public class TransactionHandler : IDelegatingHandler
 	{
-		private readonly IPipelineHandler innerHandler;
 		private readonly Context context;
 
-		public TransactionHandler(IPipelineHandler innerHandler, Context context)
+		public TransactionHandler(Context context)
 		{
-			this.innerHandler = innerHandler;
 			this.context = context;
 		}
 
-		public async Task<object> Handle(IMessage message)
+		public async Task<object> Handle(INextHandler next, object message)
 		{
-			var result = await innerHandler.Handle(message);
+			var result = await next.Handle(message);
 
 			context.SaveChanges();
 

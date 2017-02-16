@@ -8,9 +8,9 @@ namespace Website.MicroBus.Sample.Controllers
 {
 	public class FeatureController : ApiController
 	{
-		private readonly IBus bus;
+		private readonly IMicroBus bus;
 
-		public FeatureController(IBus bus)
+		public FeatureController(IMicroBus bus)
 		{
 			this.bus = bus;
 		}
@@ -22,7 +22,7 @@ namespace Website.MicroBus.Sample.Controllers
 
 		public async Task Post()
 		{
-			await bus.Send(new FeatureCommand());
+			await bus.SendAsync(new FeatureCommand());
 		}
 	}
 }
