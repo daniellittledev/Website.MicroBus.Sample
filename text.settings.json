@@ -199,7 +199,8 @@ Version: 2
     }
   },
   {
-    "Name": "XAML",
+    "Name": "XAML",//Extensible Application Markup Language (XAML /ˈzæməl/ ( listen)) is a declarative XML-based language developed by Microsoft that is used for initializing structured values and objects
+    
     "Settings": {
       "TabSettings": {
         "IndentStyle": null,
